@@ -1,5 +1,6 @@
 package com.ankit.rls.controller;
 
+import com.ankit.rls.dto.CreateUserRequest;
 import com.ankit.rls.dto.UserInfo;
 import com.ankit.rls.service.UserService;
 import java.util.List;
@@ -17,6 +18,11 @@ public class UserApiController implements UserApi {
   @Override
   public List<UserInfo> getUsers() {
     return userService.getUsers();
+  }
+
+  @Override
+  public void createUser(CreateUserRequest createUserRequest) {
+    userService.createUser(createUserRequest);
   }
 
 }
