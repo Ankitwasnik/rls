@@ -1,4 +1,4 @@
-package com.ankit.rls.model;
+package com.ankit.rls.datasource;
 
 import lombok.extern.slf4j.Slf4j;
 

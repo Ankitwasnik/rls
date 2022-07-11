@@ -1,6 +1,5 @@
-package com.ankit.rls.config;
+package com.ankit.rls.datasource;
 
-import com.ankit.rls.model.TenantAwareDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;

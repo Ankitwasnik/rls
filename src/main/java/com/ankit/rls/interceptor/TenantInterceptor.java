@@ -1,7 +1,7 @@
 package com.ankit.rls.interceptor;
 
 import com.ankit.rls.exception.ErrorResponse;
-import com.ankit.rls.model.TenantContext;
+import com.ankit.rls.datasource.TenantContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.ankit.rls.model;
+package com.ankit.rls.datasource;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -24,25 +24,25 @@ public class TenantAwareDataSource extends DelegatingDataSource {
   public Connection getConnection() throws SQLException {
     final Connection connection = getTargetDataSource().getConnection();
     setTenantId(connection);
-    return getRegulatorAwareConnectionProxy(connection);
+    return getTenantAwareConnectionProxy(connection);
   }
 
   @Override
   public Connection getConnection(final String username, final String password) throws SQLException {
     final Connection connection = getTargetDataSource().getConnection(username, password);
     setTenantId(connection);
-    return getRegulatorAwareConnectionProxy(connection);
+    return getTenantAwareConnectionProxy(connection);
   }
 
-  // Connection Proxy that intercepts close() to reset the regulator_id
-  protected Connection getRegulatorAwareConnectionProxy(final Connection connection) {
+  // Connection Proxy that intercepts close() to reset the tenant_id
+  protected Connection getTenantAwareConnectionProxy(final Connection connection) {
     return (Connection) Proxy.newProxyInstance(
         ConnectionProxy.class.getClassLoader(),
         new Class[]{ConnectionProxy.class},
         new TenantAwareInvocationHandler(connection));
   }
 
-  // Connection Proxy invocation handler that intercepts close() to reset the regulator_id
+  // Connection Proxy invocation handler that intercepts close() to reset the tenant_id
   private class TenantAwareInvocationHandler implements InvocationHandler {
 
     private final Connection target;
@@ -60,7 +60,7 @@ public class TenantAwareDataSource extends DelegatingDataSource {
         case "hashCode":
           return System.identityHashCode(proxy);
         case "toString":
-          return "Regulator-aware proxy for target Connection [" + this.target.toString() + "]";
+          return "Tenant-aware proxy for target Connection [" + this.target.toString() + "]";
         case "unwrap":
           if (((Class) args[0]).isInstance(proxy)) {
             return proxy;

@@ -1,5 +1,6 @@
 package com.ankit.rls.model;
 
+import com.ankit.rls.datasource.TenantListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
